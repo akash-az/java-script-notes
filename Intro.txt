@@ -1,0 +1,19 @@
+node js is used for running java script out of the browser.
+
+both .txt files and .js files are treated almost the same way.
+
+Compilers and interpreters have understanding of syntax (syntax recognition) code.
+
+nodejs/ deno js -> find out its creators.
+
+jetbrains ka fleet is getting popular.
+
+when we use console.log(" a string ") -> tree parser recognizes the .js file , but does not accept .txt file. 
+
+"use strict" -> for code to follow newer version of js rules like classes, objects, arrow functions.
+
+original js document = tc39.ec (ecmascript)
+
+mdn web docs are given by mozilla organization.
+
+

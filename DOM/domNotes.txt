@@ -1,0 +1,103 @@
+go to chrome dev tools > console.log(document);          // give the partial document object, important parts
+                        console.dir(document)           // gives teh entire document
+                        console.log(window.document);   //     gives the document object
+                        console.log(window);            // gives window object
+
+
+Document // goes vertically downwards -> of our starting html document which had a div and inside was h1 and p tag.
+                                
+                                DOM Tree
+
+Window -> document -> html(has 2 childs) -> head -> title -> text node
+                                                  -> meta  -> attribute                                      
+                                           
+                                          -> body -> div -> attribute 
+                                                         -> h1    -> attribute
+                                                                  -> text node
+                                                               
+                                                         -> p tag  -> text node
+
+* console.log(document.your required function).
+
+** Trick -> 
+ 
+  go to a page -> right click  > inspect  > select a title > get its id > go to console > documet.getElementById('id').innerHTML = "<h1>
+                                                                                            Akash Chaturvedi </h1>
+                                   ########## DOM Selectors ############
+
+document.getElementById('id') -> returns an element.
+document.getElementById('id').id -> returns id
+document.getElementById('id').className -> returns class className
+document.getElementById('id').class -> returns undefined.  bcus although we write class but behind the scene document take it as class name.
+
+document.getElementById('id').getAttribute -> returns -> f getAttribute()  {[native code]}.  -> f represents that getAttribute is a function.
+
+document.getElementById('id').getAttribute('id') -> returns id
+document.getElementById('id').getAttribute('class') -> returns class
+document.getElementById('id').setAttribute('class','class name') -> returns undefined but over writes the class name.
+
+const title = document.getElementById('title');
+
+title.style.backgroundColor = "green" -> changes background to green and returns string 'green'
+title.style.borderRadius = "5px"
+title.style.borderRadius = "10px"
+
+title.textContent -> returns the textcontent in that element as String.
+title.innerText -> returns text content as String.
+title.innerHTML  -> returns the text content as String.
+
+All 3 returs the same value but have differences :
+
+example : <h1 id="second"> hello my name is <span style ="display: none">Akash</span></h1>
+ cosnt name = document.getElementById('second');
+ name.innerText -> returns :  hello my name is // does not dsiplay the span content bcus its hidden
+ name.textContent -> returns :  hello my name is Akash // displays all the content hidden or otherwise.
+ name.innerHTML-> reurns : hello my name is <span style ="display: none">Akash</span> // also returns <span> i.e inner html content. 
+
+
+## querySelector
+**  querySelector -> returns first intem
+
+document.querySelector('#title') -> returns element with id title else null
+document.querySelector('.heading') -> returns element with class heading else null
+document.querySelector('input[type="password"]'); -> returns input element,if none represents null
+
+Now : <ul id = "hello">
+        <li></li>
+        <li></li>
+        <li></li>
+
+
+      </ul>
+
+   * We have to change the bakground color of first li 
+
+   const ulist = document.getElementById('hello');
+
+   const turnGreen = ulist.querySelector('li');
+
+   turnGreen.style.backGroundColor = "green";
+   turnGreen.style.size = 10px;
+
+
+** querySelectorAll -> returns node list of matched elements
+
+const tempList = document.querySelectorAll('li'); 
+
+tempList has : NodeList(3) [li,li,li] -> but this is not pure array rather its node list. to check -> check its prototye
+                                         -> prototype has forEach but no map, and arrays have map function by default.
+
+tempList[0].style.color = "green";
+
+or 
+
+tempList.forEach(function (l)){
+    l.style.backgroundColor = 'green' // changes the background color of each li.
+}
+
+** We can convert node list into an Array -> 
+if we give class name to each li.
+
+
+
+
