@@ -1,0 +1,18 @@
+Javascript(default) -> synchronous -> code is executed one by one.
+           -> single threaded
+
+Execution context : 
+ 
+ thread one starts : line by line one code after another is executed as completing milestones
+
+
+                                 ### Blocking vs Non Blocking Code:
+
+Blocking code - blocks the flow of the program
+
+Non Blocking code - does not blocks the flow of program
+
+Use case for blocknig code: User registration successful message , after only the database has been updated , message should be sent.
+
+
+Diagram explanation : 

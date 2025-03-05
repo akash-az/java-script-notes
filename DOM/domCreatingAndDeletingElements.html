@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    <ul class="language"><h3>Heading</h3>
+        <!--  image was suppost to be in each li -->
+        <li>python</li>
+        <li>Laravel</li>
+        <li>Java</li>
+        <li>Javascript</li>
+    </ul>
+
+  <script>
+    document.querySelector('.language').addEventListener('click',function(e){
+        // console.log(e.target()); // gives where the event happend, here it will give which li was clicked.
+        console.log(e.target.parentNode); // sometimes we need to perform action on parent node containing the element.
+
+        let removeIt = e.target.parentNode; // returns li containing the text or image
+        removeIt.remove(); // removes the li when inside image or text is deleted is clicked.
+        // Another method :
+        removeIt.parentNode.removeChild('removeIt'); // first access the ul then selects the child 'li' and removes it.
+
+        // suppose images were there in each li and text was there in ul as separate li. if we clicked on text the entire ul will be removed bcus 
+        // parent node is "ul"
+
+        // to resolve this we use if statements:
+
+
+        // if(e.target.tagName === 'IMG'){
+        //     console.log(e.target.id); 
+        //     let removeIt1 = e.target.tagName;
+        //     removeIt.remove();
+        // }
+        
+
+
+    })
+  </script>  
+</body>
+</html>

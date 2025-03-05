@@ -1,0 +1,136 @@
+# Best way to put events on elements on  dom elements is to use event handlers.
+
+method 1 : <li onclick="alert("li clicked")">M1</li>  // not suitable for scalable applications when in case of pure js.
+
+
+method 2 : <script>
+
+         document.getElementById('li-1').onclick = function(){
+            alert('li clicked');
+         };
+                
+           </script>  // provides less features
+
+
+method 3 (best approach): document.getElementById('li-1').addEventLisner('click',function(){ alert('li clicked')});
+
+**  document.getElementById('li-1').addEventLisner('click',function(e){ alert('li clicked')}); // e is the event object returned.
+      console/log(e); // gives a pointerEvent object which contains many subValues.also contains browser events and environment events
+             Envirinment events like (wher mouse was clicked , where mouse hoverd .. etc)
+
+    *Important points to read about event objects : //timeStamp , //toElements, // timeStamp, //defaultPrevented , // type, // target, // srcElement , // currentTarget.
+                                                    //clientX, //clientY, sreenX, screenY.
+                                                    //altKey, // ctrlKey ,//shiftKey, //keyCode.
+
+* document.getElementById('li-1').addEventLisner('click',function(){ alert('li clicked')},false); // false is the third parametre and is false by default so people do not usually write it.
+
+method 4: attachEvent() -> olden displays
+
+method 5 : jQuery - on
+
+
+** The false(third parametre) value in method 3 is for "event propogation" and if we use it as false or true it does not create any diffenrece in most className
+
+*Event Propogation : event bubbling, event Capturing.
+
+Event Bubbling : flow goes from inner element to outer element.
+
+
+                document.getElementById('outer-div').addEventLisner('click',function(e){ console.log(e)}); // outer div 
+               
+
+              document.getElementById('inner-div').addEventLisner('click',function(e){  console.log(e)}); // inner div 
+               
+
+ * So, if i clicked on inner div , both messages from outer and inner will be printed. inner div is logged first an then outer div is logged.
+
+
+** So when we dont want event bubbling : so in inner div function provide : e.stopPropogation().
+
+# preventDefault() : document.getElementById('google').addEventListner('click',function(){console.log('google clicked'); e.preventDefault(); e.stopPropogation();},false)
+
+
+
+                               Event Capturing and event bubbling:
+
+
+The third parameter in addEventListener(event, handler, useCapture) is called useCapture.
+ It determines whether the event should be handled in the capturing phase (true) or the bubbling phase (false).
+
+ ###### Extra
+
+ Scenario: Clicking a Button Inside a Div
+Imagine you have a button inside a div, and both have click event listeners:
+
+
+<div id="parent-div" style="padding: 20px; background-color: lightgray;">
+    <button id="child-button">Click Me</button>
+</div>
+Now, let's add event listeners with bubbling (false) and capturing (true).
+
+Case 1: Bubbling (false)
+
+document.getElementById('parent-div').addEventListener('click', function() {
+    console.log('Div clicked');
+}, false); // Bubbling
+
+document.getElementById('child-button').addEventListener('click', function() {
+    console.log('Button clicked');
+}, false); // Bubbling
+
+Output When Clicking the Button (child-button)
+
+Button clicked
+Div clicked
+Why?
+
+The event starts at the button (target).
+Then, it bubbles up to the parent div.
+So, the button event fires first, then the div event.
+Case 2: Capturing (true)
+
+document.getElementById('parent-div').addEventListener('click', function() {
+    console.log('Div clicked');
+}, true); // Capturing
+
+document.getElementById('child-button').addEventListener('click', function() {
+    console.log('Button clicked');
+}, false); // Bubbling
+Output When Clicking the Button (child-button)
+
+Div clicked
+Button clicked
+Why?
+
+The event moves top-down during capturing.
+The div event fires first, then the button event.
+After reaching the button, the event switches to bubbling phase, but the div already handled it.
+Key Takeaways
+Scenario	Bubbling (false)	Capturing (true)
+Event starts at	Target (child)	Root (parent)
+Event propagates	Up (child → parent)	Down (parent → child)
+When clicking <button>	Button first, then Div	Div first, then Button
+Default behavior	Yes	No, must be explicitly set
+When to Use false (Bubbling)?
+Default behavior in most cases.
+When the child should handle the event first.
+Example: Clicking a delete button inside a task list.
+
+document.getElementById('task-list').addEventListener('click', function(event) {
+    if (event.target.tagName === 'BUTTON') {
+        console.log('Task deleted');
+    }
+}, false);
+When to Use true (Capturing)?
+When parent should handle the event before the child.
+Example: Blocking all clicks inside a modal before they reach child elements.
+
+document.getElementById('modal').addEventListener('click', function() {
+    console.log('Modal clicked first');
+}, true);
+Final Thoughts
+Use false (bubbling) most of the time (default behavior).
+Use true (capturing) when you need early interception.
+Both work together, but capturing happens before bubbling.
+
+##### Extra.
